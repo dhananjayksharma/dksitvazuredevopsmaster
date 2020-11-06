@@ -7,6 +7,7 @@ variables:
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
   GOPATH: '$(system.defaultWorkingDirectory)/gopath' # Go workspace path
+  modulePath: '$(GOPATH)/src/github.com/$(build.repository.name)' # Path to the module's code
 
 stages:
 - stage: Build
@@ -24,12 +25,12 @@ stages:
       inputs:
         command: 'get'
         arguments: '-v -d'
-        workingDirectory: '$(GOPATH)'
+        workingDirectory: '$(modulePath)'
     - task: Go@0
       inputs:
         command: 'build'
         arguments: '-v -o api'
-        workingDirectory: '$(System.DefaultWorkingDirectory)'
+        workingDirectory: '$(modulePath)' 
     - task: Go@0
       inputs:
         command: 'test'
