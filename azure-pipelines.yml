@@ -1,64 +1,59 @@
-# Go
-# Build your Go project.
-# Add steps that test, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/go
+# Docker
 
 trigger:
-  batch: true
-  branches:
-    include:
-      - master
-      - develop
-      - release/*
-      - feature/*
-      - hotfix/*
-      - bugfix/*
-  paths:
-    exclude:
-      - README.md
-      - LICENSE
-      - .travis.yml
-      - .github/*
-      - .gitignore
+- master
 
-pr:
-  autoCancel: true
-  branches:
-    include:
-      - master
-      - develop
-  paths:
-    exclude:
-      - README.md
-      - LICENSE
-      - .travis.yml
-      - .github/*
-      - .gitignore
+resources:
+- repo: self
 
 variables:
-  APPNAME: mylabs-go
-  GOPATH: '$(Pipeline.Workspace)/gowork'
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: '36284702-7f77-4551-afdb-ff2e418b3875'
+  imageRepository: 'go-restapi'
+  containerRegistry: 'ffcontainers.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  tag: '$(Build.BuildId)'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
 
 stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: GoTool@0
+      inputs:
+        version: '1.14.1'
+    - task: Go@0
+      inputs:
+        command: 'get'
+        arguments: '-v -d'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
+    - task: Go@0
+      inputs:
+        command: 'build'
+        arguments: '-v -o api'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
+    - task: Go@0
+      inputs:
+        command: 'test'
+        arguments: '-v ./...'
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
 
-  - stage: Build
-    displayName: Build (Multi-Platform)
-    jobs:
-      - template: templates/azure/jobs/build.yml
-        parameters:
-          appName: $(APPNAME)
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
-  - stage: Test
-    jobs:
-      - template: templates/azure/jobs/test.yml
-        parameters:
-          appName: $(APPNAME)
-
-  - stage: Release
-    displayName: Release (Multi-Platform)
-    condition: or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release'), startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix'))
-    jobs:
-      - template: templates/azure/jobs/release.yml
-        parameters:
-          parameters:
-          appName: $(APPNAME)
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
