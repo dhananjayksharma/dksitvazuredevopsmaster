@@ -1,30 +1,8 @@
-variables:
-  GOBIN:  '$(GOPATH)/bin' # Go binaries path
-  GOROOT: '/usr/local/go1.11' # Go installation path
-  GOPATH: '$(system.defaultWorkingDirectory)/gopath' # Go workspace path
-  modulePath: '$(GOPATH)/src/github.com/$(build.repository.name)' # Path to the module's code
-
-steps:
-- task: GoTool@0
-  displayName: 'Use Go 1.10'
-
+# Go
+# Get, build, or test a Go application, or run a custom Go command
 - task: Go@0
-  displayName: 'go get'
   inputs:
-    arguments: '-d'
-
-- task: Go@0
-  displayName: 'go build'
-  inputs:
-    command: build
-    arguments: '-o "$(System.TeamProject).exe"'
-
-- task: ArchiveFiles@2
-  displayName: 'Archive files'
-  inputs:
-    rootFolderOrFile: '$(Build.Repository.LocalPath)'
-    includeRootFolder: False
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish artifact'
-  condition: succeededOrFailed()
+    #command: 'get' # Options: get, build, test, custom
+    #customCommand: # Required when command == Custom
+    #arguments: # Optional
+    workingDirectory: 
