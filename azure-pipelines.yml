@@ -6,6 +6,7 @@ trigger:
 variables:
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
+  GOPATH: '$(system.defaultWorkingDirectory)/gopath' # Go workspace path
 
 stages:
 - stage: Build
@@ -23,7 +24,7 @@ stages:
       inputs:
         command: 'get'
         arguments: '-v -d'
-        workingDirectory: '$(System.DefaultWorkingDirectory)'
+        workingDirectory: '$(GOPATH)'
     - task: Go@0
       inputs:
         command: 'build'
