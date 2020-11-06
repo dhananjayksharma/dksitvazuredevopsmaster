@@ -1,38 +1,19 @@
-# Docker
-
-trigger:
-- master
+pool:
+  vmImage: 'Ubuntu 16.04'
 
 variables:
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+  GOBIN:  '$(GOPATH)/bin' # Go binaries path
+  GOROOT: '/usr/local/go1.11' # Go installation path
   GOPATH: '$(system.defaultWorkingDirectory)/gopath' # Go workspace path
   modulePath: '$(GOPATH)/src/github.com/$(build.repository.name)' # Path to the module's code
 
-stages:
-- stage: Build
-  displayName: Build and push stage
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-    - task: GoTool@0
-      inputs:
-        version: '1.14.1'
-    - task: Go@0
-      inputs:
-        command: 'get'
-        arguments: '-v -d'
-        workingDirectory: '$(modulePath)'
-    - task: Go@0
-      inputs:
-        command: 'build'
-        arguments: '-v -o api'
-        workingDirectory: '$(modulePath)' 
-    - task: Go@0
-      inputs:
-        command: 'test'
-        arguments: '-v ./...'
-        workingDirectory: '$(System.DefaultWorkingDirectory)'
+steps:
+- script: |
+    mkdir -p '$(GOBIN)'
+    mkdir -p '$(GOPATH)/pkg'
+    mkdir -p '$(modulePath)'
+    shopt -s extglob
+    mv !(gopath) '$(modulePath)'
+    echo '##vso[task.prependpath]$(GOBIN)'
+    echo '##vso[task.prependpath]$(GOROOT)/bin'
+  displayName: 'Set up the Go workspace'
