@@ -1,5 +1,64 @@
+# Go
+# Build your Go project.
+# Add steps that test, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/go
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+      - develop
+      - release/*
+      - feature/*
+      - hotfix/*
+      - bugfix/*
+  paths:
+    exclude:
+      - README.md
+      - LICENSE
+      - .travis.yml
+      - .github/*
+      - .gitignore
+
+pr:
+  autoCancel: true
+  branches:
+    include:
+      - master
+      - develop
+  paths:
+    exclude:
+      - README.md
+      - LICENSE
+      - .travis.yml
+      - .github/*
+      - .gitignore
+
 variables:
-  GOBIN:  '$(GOPATH)/bin' # Go binaries path
-  GOROOT: '/usr/local/go1.11' # Go installation path
-  GOPATH: '$(system.defaultWorkingDirectory)/gopath' # Go workspace path
-  modulePath: '$(GOPATH)/src/github.com/$(build.repository.name)' # Path to the module's code
+  APPNAME: mylabs-go
+  GOPATH: '$(Pipeline.Workspace)/gowork'
+
+stages:
+
+  - stage: Build
+    displayName: Build (Multi-Platform)
+    jobs:
+      - template: templates/azure/jobs/build.yml
+        parameters:
+          appName: $(APPNAME)
+
+  - stage: Test
+    jobs:
+      - template: templates/azure/jobs/test.yml
+        parameters:
+          appName: $(APPNAME)
+
+  - stage: Release
+    displayName: Release (Multi-Platform)
+    condition: or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release'), startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix'))
+    jobs:
+      - template: templates/azure/jobs/release.yml
+        parameters:
+          parameters:
+          appName: $(APPNAME)
