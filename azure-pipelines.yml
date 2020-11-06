@@ -2,12 +2,12 @@ trigger:
  - master
 
 pool:
-   vmImage: 'ubuntu-latest'
+   vmImage: 'ubuntu-20.04'
 
 steps: 
 - task: GoTool@0
   inputs:
-    version: '1.11'
+    version: '1.12.5'
 - task: Go@0
   inputs:
     command: 'get'
