@@ -31,9 +31,9 @@ jobs:
         displayName: 'Run a multi-line script jobs 2'
 
   - job: Job3
-        steps:
-          - script: echo Hello job3!
-            displayName: 'Run a one-line script job3' 
+    steps:
+      - script: echo Hello job3!
+        displayName: 'Run a one-line script job3' 
 
     
 
