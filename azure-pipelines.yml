@@ -15,6 +15,7 @@ jobs:
           echo Add task to test 
           echo Add task to deploy to server 1
           echo Add task to deploy to server 2
+          echo Add task to deploy to server 3
         displayName: 'Run a multi-line script'
 
     
