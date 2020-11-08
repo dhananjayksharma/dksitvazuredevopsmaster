@@ -1,0 +1,38 @@
+trigger:
+  - main
+ 
+ pool:
+   vmImage: 'Ubuntu 20.04'
+ 
+ jobs:
+   - job: Job1
+     steps:
+       - script: echo Hello, World new changed!
+         displayName: 'Run a one-line script'
+ 
+       - script: |
+           echo Add task to buid
+           echo Add task to test 
+           echo Add task to deploy to server 1
+           echo Add task to deploy to server 2
+           echo Add task to deploy to server 3
+         displayName: 'Run a multi-line script'
+   - job: Job2
+     steps:
+       - script: echo Hello Job2 , World new changed 2!
+         displayName: 'Run a one-line script jobs2'
+ 
+       - script: |
+           echo Add task to buid jobs 2
+           echo Add task to test jobs 2
+           echo Add task to deploy to server 1 jobs 2
+           echo Add task to deploy to server 2 jobs 2
+           echo Add task to deploy to server 3 jobs 2
+         displayName: 'Run a multi-line script jobs 2'
+ 
+   - job: Job3
+     dependsOn: 
+     - Job2
+     steps:
+       - script: echo Hello job3!
+         displayName: 'Run a one-line script job3' 
