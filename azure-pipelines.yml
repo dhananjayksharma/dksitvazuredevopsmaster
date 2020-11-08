@@ -13,7 +13,8 @@ jobs:
       - script: |
           echo Add task to buid
           echo Add task to test 
-          echo Add task to deploy
+          echo Add task to deploy to server 1
+          echo Add task to deploy to server 2
         displayName: 'Run a multi-line script'
 
     
