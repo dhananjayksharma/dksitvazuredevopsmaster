@@ -17,7 +17,7 @@ stages:
 
 - stage: DevDeploy
   variables:
-   environment: Dev
+   environment: DevEnvValue
   dependsOn: Build
   jobs:
     - job: DevDeployJob
