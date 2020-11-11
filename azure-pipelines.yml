@@ -32,6 +32,8 @@ stages:
       steps:
         - bash: echo QADeployJob 
 - stage: ProdDeploy
+  variables:
+   environment: ProductionEnvValue
   dependsOn: 
     - Build
     - DevDeploy
@@ -39,4 +41,4 @@ stages:
   jobs:
     - job: ProdDeployJob
       steps:
-        - bash: echo ProdDeployJobChanges 
+        - bash: echo $(environment)JobChanges 
