@@ -1,0 +1,17 @@
+trigger:
+ - main
+
+pool:
+  vmImage: 'Ubuntu 20.04'
+
+stages:
+- stage: Build
+  jobs:
+  - job: FirstJob
+    steps:
+      - bash: echo Build FirstJob
+      - bash: echo $(firstJobVariable)
+      - script: echo $(Build.BuildNumber) 
+  - job: SecondJob
+    steps:
+      - bash: echo Build SecondJob
