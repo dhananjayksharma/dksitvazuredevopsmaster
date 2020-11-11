@@ -3,14 +3,17 @@ trigger:
 
 pool:
   vmImage: 'Ubuntu 20.04'
-
+# Set MyRunNumber
+variables: 
+  MyRunNumber: '1.0.0-CIDKSITV-$(Build.BuildNumber)'
 stages:
 - stage: Build
   jobs:
   - job: FirstJob
-    steps:
+    steps: 
       - bash: echo Build FirstJob
       - bash: echo $(firstJobVariable)
+      - bash: echo "MyRunNumber:"$(MyRunNumber)
       - bash: echo $(Build.SourceBranchName) 
       - bash: echo $(Build.SourcesDirectory) 
       - bash: echo $(System.DefaultWorkingDirectory) 
