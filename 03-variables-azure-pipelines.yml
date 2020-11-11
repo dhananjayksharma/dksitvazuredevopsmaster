@@ -11,7 +11,7 @@ stages:
     steps:
       - bash: echo Build FirstJob
       - bash: echo $(firstJobVariable)
-      - script: echo $(Build.BuildNumber) 
+      - script: echo $(Build.SourceBranchName) 
   - job: SecondJob
     steps:
       - bash: echo Build SecondJob
