@@ -1,10 +1,28 @@
-FROM maven:3.6.3-jdk-8-slim AS build
-WORKDIR /home/app
-COPY . /home/app
-RUN mvn -f /home/app/pom.xml clean package
+# Dockerfile References: https://docs.docker.com/engine/reference/builder/
 
-FROM openjdk:8-jdk-alpine
-VOLUME /tmp
-EXPOSE 8000
-COPY --from=build /home/app/target/*.jar app.jar
-ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
+# Start from the latest golang base image
+FROM golang:latest
+
+# Add Maintainer Info
+LABEL maintainer="Rajeev Singh <rajeevhub@gmail.com>"
+
+# Set the Current Working Directory inside the container
+WORKDIR /app
+
+# Copy go mod and sum files
+COPY go.mod go.sum ./
+
+# Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
+RUN go mod download
+
+# Copy the source from the current directory to the Working Directory inside the container
+COPY . .
+
+# Build the Go app
+RUN go build -o main .
+
+# Expose port 8080 to the outside world
+EXPOSE 8080
+
+# Command to run the executable
+CMD ["./main"]
