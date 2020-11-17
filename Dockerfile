@@ -4,7 +4,7 @@
 FROM golang:latest
 
 # Add Maintainer Info
-LABEL maintainer="Rajeev Singh <rajeevhub@gmail.com>"
+LABEL maintainer="dhananjay k sharma <dhananjayksharma@gmail.com>"
 
 # Set the Current Working Directory inside the container
 WORKDIR /app
