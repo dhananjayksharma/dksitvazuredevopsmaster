@@ -31,15 +31,14 @@ stages:
       
       - task: SonarQubePrepare@4
         inputs:
-          SonarQube: 'udemydevopscoursetestproject'
-          scannerMode: 'CLI'
-          configMode: 'file'
-      - task: SonarQubeAnalyze@4
-
+        SonarQube: 'udemydevopscoursetestproject'
+        scannerMode: 'MSBuild'
+        projectKey: 'infotechvedasindia_udemydevopscoursetestproject'
+        projectName: 'udemydevopscoursetestproject'
+ 
       - task: SonarQubePublish@4
         inputs:
           pollingTimeoutSec: '300'
-
       - task: PublishBuildArtifacts@1
         inputs:
           PathtoPublish: '$(Build.ArtifactStagingDirectory)'
