@@ -37,6 +37,18 @@ stages:
           organization: 'infotechvedasindia'
           scannerMode: 'CLI'
           configMode: 'file'
+          projectKey: infotechvedasindia_udemydevopscoursetestproject
+          projectName: My Project Name 
+          sources: .
+          exclusions: '**/*_test.go'
+          tests: .
+          inclusions: '**/*_test.go'
+    
+      - task: SonarCloudAnalyze@1
+
+      - task: SonarCloudPublish@1
+        inputs:
+          pollingTimeoutSec: '300'
     
       - task: PublishBuildArtifacts@1
         inputs:
