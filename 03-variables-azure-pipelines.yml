@@ -7,6 +7,8 @@ pool:
 # Set MyRunNumber
 variables: 
   MyRunNumber: '1.0.0-CIDKSITV-$(Build.BuildNumber)'
+  SonarProjectKey: 'infotechvedasindia_udemydevopscoursetestproject'
+
 stages:
 - stage: Build
   jobs:
@@ -35,13 +37,7 @@ stages:
           organization: 'infotechvedasindia'
           scannerMode: 'CLI'
           configMode: 'file'
-            
-      - task: SonarCloudAnalyze@1
-
-      - task: SonarCloudPublish@1
-        inputs:
-          pollingTimeoutSec: '300'
-            
+    
       - task: PublishBuildArtifacts@1
         inputs:
           PathtoPublish: '$(Build.ArtifactStagingDirectory)'
