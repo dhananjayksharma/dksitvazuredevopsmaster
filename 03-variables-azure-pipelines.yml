@@ -29,16 +29,20 @@ stages:
           TargetFolder: '$(Build.ArtifactStagingDirectory)'
       - bash: ls -R $(Build.ArtifactStagingDirectory)
       
-      - task: SonarQubePrepare@4
+      - task: SonarCloudPrepare@1
         inputs:
-          SonarQube: 'udemydevopscoursetestproject'
+          SonarCloud: 'SonarClaudTokenServiceConnection'
+          organization: 'infotechvedasindia'
           scannerMode: 'MSBuild'
           projectKey: 'infotechvedasindia_udemydevopscoursetestproject'
           projectName: 'udemydevopscoursetestproject'
- 
-      - task: SonarQubePublish@4
+      
+      - task: SonarCloudAnalyze@1
+
+      - task: SonarCloudPublish@1
         inputs:
           pollingTimeoutSec: '300'
+          
       - task: PublishBuildArtifacts@1
         inputs:
           PathtoPublish: '$(Build.ArtifactStagingDirectory)'
