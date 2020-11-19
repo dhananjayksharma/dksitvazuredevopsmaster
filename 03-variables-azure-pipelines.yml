@@ -37,12 +37,12 @@ stages:
           organization: 'infotechvedasindia'
           scannerMode: 'CLI'
           configMode: 'file'
-          projectKey: infotechvedasindia_udemydevopscoursetestproject
-          projectName: My Project Name 
-          sources: .
-          exclusions: '**/*_test.go'
-          tests: .
-          inclusions: '**/*_test.go'
+          sonar.projectKey: infotechvedasindia_udemydevopscoursetestproject
+          sonar.projectName: My Project Name 
+          sonar.sources: .
+          sonar.exclusions: '**/*_test.go'
+          sonar.tests: .
+          sonar.inclusions: '**/*_test.go'
     
       - task: SonarCloudAnalyze@1
 
