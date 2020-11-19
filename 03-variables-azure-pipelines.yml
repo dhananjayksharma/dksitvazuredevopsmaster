@@ -37,6 +37,7 @@ stages:
           organization: 'infotechvedasindia'
           scannerMode: 'CLI'
           configMode: manual
+          cliProjectKey: udemydevopscoursetestproject
           extraProperties: |
             sonar.projectKey=infotechvedasindia_udemydevopscoursetestproject
             sonar.projectName=udemydevopscoursetestproject
