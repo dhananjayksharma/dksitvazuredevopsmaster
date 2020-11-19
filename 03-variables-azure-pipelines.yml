@@ -36,13 +36,14 @@ stages:
           SonarCloud: 'SonarClaudTokenServiceConnection'
           organization: 'infotechvedasindia'
           scannerMode: 'CLI'
-          configMode: 'file'
-          sonar.projectKey: infotechvedasindia_udemydevopscoursetestproject
-          sonar.projectName: My Project Name 
-          sonar.sources: .
-          sonar.exclusions: '**/*_test.go'
-          sonar.tests: .
-          sonar.inclusions: '**/*_test.go'
+          configMode: manual
+          extraProperties: |
+            sonar.projectKey=infotechvedasindia_udemydevopscoursetestproject
+            sonar.projectName=udemydevopscoursetestproject
+            sonar.sources=.
+            sonar.exclusions=**/*_test.go
+            sonar.tests=.
+            sonar.inclusions=**/*.go
     
       - task: SonarCloudAnalyze@1
 
