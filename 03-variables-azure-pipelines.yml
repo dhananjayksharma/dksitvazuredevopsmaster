@@ -29,18 +29,6 @@ stages:
           TargetFolder: '$(Build.ArtifactStagingDirectory)'
       - bash: ls -R $(Build.ArtifactStagingDirectory)
       
-      - task: SonarCloudPrepare@1
-        inputs:
-          SonarCloud: 'SonarClaudTokenServiceConnection'
-          organization: 'infotechvedasindia'
-          scannerMode: 'CLI'
-          configMode: 'file'
-      
-      - task: SonarCloudAnalyze@1
-
-      - task: SonarCloudPublish@1
-        inputs:
-          pollingTimeoutSec: '300'
           
       - task: PublishBuildArtifacts@1
         inputs:
