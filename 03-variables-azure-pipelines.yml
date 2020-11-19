@@ -27,7 +27,9 @@ stages:
             **/*.tf
           TargetFolder: '$(Build.ArtifactStagingDirectory)'
       - bash: ls -R $(Build.ArtifactStagingDirectory)
-      
+
+      - task: SonarQubeAnalyze@4
+
       - task: SonarQubePublish@4
         inputs:
           pollingTimeoutSec: '300'
