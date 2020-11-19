@@ -1,6 +1,7 @@
 trigger:
  - main
-
+ - releases/*
+ 
 pool:
   vmImage: 'Ubuntu 20.04'
 # Set MyRunNumber
