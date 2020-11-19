@@ -27,7 +27,12 @@ stages:
             **/*.tf
           TargetFolder: '$(Build.ArtifactStagingDirectory)'
       - bash: ls -R $(Build.ArtifactStagingDirectory)
-
+      
+      - task: SonarQubePrepare@4
+        inputs:
+          SonarQube: 'udemydevopscoursetestproject'
+          scannerMode: 'CLI'
+          configMode: 'file'
       - task: SonarQubeAnalyze@4
 
       - task: SonarQubePublish@4
