@@ -39,12 +39,13 @@ stages:
           configMode: manual
           cliProjectKey: udemydevopscoursetestproject
           extraProperties: |
-            sonar.projectKey=infotechvedasindia_udemydevopscoursetestproject
-            sonar.projectName=udemydevopscoursetestproject
-            sonar.sources=.
-            sonar.exclusions=**/*_test.go
-            sonar.tests=.
-            sonar.inclusions=**/*.go
+           sonar.projectKey=infotechvedasindia_udemydevopscoursetestproject
+           sonar.projectName=udemydevopscoursetestproject
+           sonar.sources=.
+           sonar.exclusions=**/*_test.go
+           sonar.tests=.
+
+          #sonar.inclusions=**/*.go
     
       - task: SonarCloudAnalyze@1
 
