@@ -17,11 +17,11 @@ stages:
       - bash: echo Build FirstJob
       - bash: echo $(firstJobVariable)
       - bash: echo "MyRunNumber:"$(MyRunNumber)
-      - bash: echo $(Build.SourceBranchName) 
-      - bash: echo $(Build.SourcesDirectory) 
-      - bash: echo $(System.DefaultWorkingDirectory) 
-      - bash: echo $(Build.ArtifactStagingDirectory) 
-      - bash: echo "Build.DefinitionName" $(Build.DefinitionName) 
+      # - bash: echo $(Build.SourceBranchName) 
+      # - bash: echo $(Build.SourcesDirectory) 
+      # - bash: echo $(System.DefaultWorkingDirectory) 
+      # - bash: echo $(Build.ArtifactStagingDirectory) 
+      # - bash: echo "Build.DefinitionName" $(Build.DefinitionName) 
       - task: CopyFiles@2
         inputs:
           SourceFolder: '$(System.DefaultWorkingDirectory)'
