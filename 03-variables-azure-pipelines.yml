@@ -31,10 +31,10 @@ stages:
       
       - task: SonarQubePrepare@4
         inputs:
-        SonarQube: 'udemydevopscoursetestproject'
-        scannerMode: 'MSBuild'
-        projectKey: 'infotechvedasindia_udemydevopscoursetestproject'
-        projectName: 'udemydevopscoursetestproject'
+          SonarQube: 'udemydevopscoursetestproject'
+          scannerMode: 'MSBuild'
+          projectKey: 'infotechvedasindia_udemydevopscoursetestproject'
+          projectName: 'udemydevopscoursetestproject'
  
       - task: SonarQubePublish@4
         inputs:
