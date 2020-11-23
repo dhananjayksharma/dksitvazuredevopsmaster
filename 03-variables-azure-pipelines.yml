@@ -8,7 +8,7 @@ pool:
 variables: 
   MyRunNumber: '1.0.0-CIDKSITV-$(Build.BuildNumber)'
   SonarProjectKey: 'infotechvedasindia_udemydevopscoursetestproject'
-  Env: 'qa'
+  Env: 'prod'
 
 stages:
 - stage: Build
