@@ -58,6 +58,10 @@ stages:
           PathtoPublish: '$(Build.ArtifactStagingDirectory)'
           ArtifactName: 'drop'
           publishLocation: 'Container'
+     
+    condition: eq(eq($(Env), 'qa')
+    steps: 
+    - bash: echo "I am in QA MyRunNumber:"$(MyRunNumber)
   # - job: SecondJob
   #   steps:
   #     - bash: echo Build SecondJob
