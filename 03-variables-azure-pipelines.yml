@@ -41,7 +41,7 @@ stages:
           publishLocation: 'Container'
 
   - job: TestVar 
-    condition: eq(variables[Env], 'qa')
+    condition: eq(variables['Env'], 'qa')
     steps:
     - bash: echo "I am in QA MyRunNumber:"$(MyRunNumber)
     - task: SonarCloudPrepare@1
