@@ -8,6 +8,7 @@ pool:
 variables: 
   MyRunNumber: '1.0.0-CIDKSITV-$(Build.BuildNumber)'
   SonarProjectKey: 'infotechvedasindia_udemydevopscoursetestproject'
+  Env: 'qa'
 
 stages:
 - stage: Build
@@ -31,27 +32,7 @@ stages:
           TargetFolder: '$(Build.ArtifactStagingDirectory)'
       - bash: ls -R $(Build.ArtifactStagingDirectory)
       
-      - task: SonarCloudPrepare@1
-        inputs:
-          SonarCloud: 'SonarClaudTokenServiceConnection'
-          organization: 'infotechvedasindia'
-          scannerMode: 'CLI'
-          configMode: manual
-          cliProjectKey: udemydevopscoursetestproject
-          extraProperties: |
-           sonar.projectKey=infotechvedasindia_udemydevopscoursetestproject
-           sonar.projectName=udemydevopscoursetestproject
-           sonar.sources=.
-           sonar.exclusions=**/*_test.go
-           sonar.tests=.
-
-          #sonar.inclusions=**/*.go
-    
-      - task: SonarCloudAnalyze@1
-
-      - task: SonarCloudPublish@1
-        inputs:
-          pollingTimeoutSec: '300'
+      
     
       - task: PublishBuildArtifacts@1
         inputs:
@@ -60,9 +41,27 @@ stages:
           publishLocation: 'Container'
 
   - job: TestVar 
-    condition: eq('$(Env)', 'qa')
+    condition: eq($(Env), 'qa')
     steps:
     - bash: echo "I am in QA MyRunNumber:"$(MyRunNumber)
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'SonarClaudTokenServiceConnection'
+        organization: 'infotechvedasindia'
+        scannerMode: 'CLI'
+        configMode: manual
+        cliProjectKey: udemydevopscoursetestproject
+        extraProperties: |
+          sonar.projectKey=infotechvedasindia_udemydevopscoursetestproject
+          sonar.projectName=udemydevopscoursetestproject
+          sonar.sources=.
+          sonar.exclusions=**/*_test.go
+          sonar.tests=.  
+    - task: SonarCloudAnalyze@1
+
+    - task: SonarCloudPublish@1
+      inputs:
+        pollingTimeoutSec: '300'
 
   # - job: SecondJob
   #   steps:
