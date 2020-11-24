@@ -1,0 +1,21 @@
+jobs:
+
+# Set an output variable from a job with a matrix
+- job: A
+  pool:
+    vmImage: 'ubuntu-18.04'
+  strategy:
+    maxParallel: 2
+    matrix:
+      Development:
+          environment: development
+        Integration:
+          environment: integration
+        QA:
+          environment: qaenv
+        Production:
+          environment: production
+  steps: 
+  - bash: echo environment $(environment)
+    
+ 
