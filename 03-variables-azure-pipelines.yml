@@ -20,7 +20,7 @@ stages:
   jobs:
   - job: TestVarDependencies
     steps:
-      - bash: echo "I am testing vars:" $(dependencies.A['environment'])
+      - bash: echo "I am testing vars:" $(dependencies.A$(environment'))
 
   - job: FirstJob
     steps: 
