@@ -2,8 +2,6 @@ jobs:
 
 # Set an output variable from a job with a matrix
 - job: A
-  pool:
-    vmImage: 'ubuntu-18.04'
   strategy:
     maxParallel: 2
     matrix:
