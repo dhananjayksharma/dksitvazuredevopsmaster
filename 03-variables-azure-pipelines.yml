@@ -14,7 +14,7 @@ stages:
 - stage: BuildAndTest
   displayName: "Add Stratgey yml"
   jobs:
-  - template: 01-strategy.yml
+  - template: 01-strategy.yaml
 
 - stage: Build
   jobs:
