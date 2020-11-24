@@ -20,7 +20,7 @@ stages:
   jobs:
   - job: TestVarDependencies
     variables:
-      myVarFromJobADebug: $[ dependencies.A.outputs['debugJob.environment'] ]
+      myVarFromJobADebug: $[ dependencies.A.outputs['QA.environment'] ]
     steps:
       - bash: echo "I am testing vars:" $(myVarFromJobADebug)
     
