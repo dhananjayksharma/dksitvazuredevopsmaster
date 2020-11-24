@@ -19,8 +19,11 @@ stages:
 - stage: Build
   jobs:
   - job: TestVarDependencies
+    variables:
+    myVarFromJobADebug: $[ dependencies.A.outputs['debugJob.environment'] ]
     steps:
-      - bash: echo "I am testing vars:" $(dependencies.A$(environment'))
+      - bash: echo "I am testing vars:" $(myVarFromJobADebug)
+    
 
   - job: FirstJob
     steps: 
@@ -50,7 +53,7 @@ stages:
 
 
   # - job: TestVar 
-  #   condition: eq(dependencies.A.environment, 'qaenv')
+  #   condition: eq(variables(myVarFromJobADebug), 'qaenv')
   #   steps:
   #   - bash: echo "I am in QA MyRunNumber:"$(MyRunNumber)
   #   - task: SonarCloudPrepare@1
