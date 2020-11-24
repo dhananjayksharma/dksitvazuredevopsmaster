@@ -45,30 +45,30 @@ stages:
 
   - job: TestVarDependencies
     steps:
-    - bash: echo "I am testing vars:" $[dependencies.A.environment]
+    - bash: echo "I am testing vars:" $(dependencies.A.environment)
 
-  - job: TestVar 
-    condition: eq(dependencies.A.environment, 'qaenv')
-    steps:
-    - bash: echo "I am in QA MyRunNumber:"$(MyRunNumber)
-    - task: SonarCloudPrepare@1
-      inputs:
-        SonarCloud: 'SonarClaudTokenServiceConnection'
-        organization: 'infotechvedasindia'
-        scannerMode: 'CLI'
-        configMode: manual
-        cliProjectKey: udemydevopscoursetestproject
-        extraProperties: |
-          sonar.projectKey=infotechvedasindia_udemydevopscoursetestproject
-          sonar.projectName=udemydevopscoursetestproject
-          sonar.sources=.
-          sonar.exclusions=**/*_test.go
-          sonar.tests=.  
-    - task: SonarCloudAnalyze@1
+  # - job: TestVar 
+  #   condition: eq(dependencies.A.environment, 'qaenv')
+  #   steps:
+  #   - bash: echo "I am in QA MyRunNumber:"$(MyRunNumber)
+  #   - task: SonarCloudPrepare@1
+  #     inputs:
+  #       SonarCloud: 'SonarClaudTokenServiceConnection'
+  #       organization: 'infotechvedasindia'
+  #       scannerMode: 'CLI'
+  #       configMode: manual
+  #       cliProjectKey: udemydevopscoursetestproject
+  #       extraProperties: |
+  #         sonar.projectKey=infotechvedasindia_udemydevopscoursetestproject
+  #         sonar.projectName=udemydevopscoursetestproject
+  #         sonar.sources=.
+  #         sonar.exclusions=**/*_test.go
+  #         sonar.tests=.  
+  #   - task: SonarCloudAnalyze@1
 
-    - task: SonarCloudPublish@1
-      inputs:
-        pollingTimeoutSec: '300'
+  #   - task: SonarCloudPublish@1
+  #     inputs:
+  #       pollingTimeoutSec: '300'
 
   # - job: SecondJob
   #   steps:
