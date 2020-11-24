@@ -4,9 +4,7 @@ jobs:
 - job: A
   strategy:
     maxParallel: 2
-    matrix:
-      Development:
-          environment: development
+    matrix: 
       Integration:
         environment: integration
       QA:
