@@ -18,6 +18,10 @@ stages:
 
 - stage: Build
   jobs:
+  - job: TestVarDependencies
+    steps:
+      - bash: echo "I am testing vars:" $(dependencies.A['environment'])
+
   - job: FirstJob
     steps: 
       - bash: echo Build FirstJob
@@ -43,9 +47,7 @@ stages:
           ArtifactName: 'drop'
           publishLocation: 'Container'
 
-  - job: TestVarDependencies
-    steps:
-    - bash: echo "I am testing vars:" $(dependencies.A.environment)
+
 
   # - job: TestVar 
   #   condition: eq(dependencies.A.environment, 'qaenv')
