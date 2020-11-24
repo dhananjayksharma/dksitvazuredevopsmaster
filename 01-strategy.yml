@@ -9,12 +9,12 @@ jobs:
     matrix:
       Development:
           environment: development
-        Integration:
-          environment: integration
-        QA:
-          environment: qaenv
-        Production:
-          environment: production
+      Integration:
+        environment: integration
+      QA:
+        environment: qaenv
+      Production:
+        environment: production
   steps: 
   - bash: echo environment $(environment)
     
