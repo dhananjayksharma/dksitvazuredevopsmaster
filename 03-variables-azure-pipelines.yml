@@ -11,6 +11,11 @@ variables:
   Env: 'prod'
 
 stages:
+- stage: BuildAndTest
+  displayName: "Add Stratgey yml"
+  jobs:
+  - template: 01-strategy.yml
+
 - stage: Build
   jobs:
   - job: FirstJob
@@ -31,17 +36,19 @@ stages:
             **/*.tf
           TargetFolder: '$(Build.ArtifactStagingDirectory)'
       - bash: ls -R $(Build.ArtifactStagingDirectory)
-      
-      
-    
+       
       - task: PublishBuildArtifacts@1
         inputs:
           PathtoPublish: '$(Build.ArtifactStagingDirectory)'
           ArtifactName: 'drop'
           publishLocation: 'Container'
 
+  - job: TestVarDependencies
+    steps:
+    - bash: echo "I am testing vars:" $[dependencies.A.environment]
+
   - job: TestVar 
-    condition: eq(variables['Env'], 'qa')
+    condition: eq(dependencies.A.environment, 'qaenv')
     steps:
     - bash: echo "I am in QA MyRunNumber:"$(MyRunNumber)
     - task: SonarCloudPrepare@1
