@@ -5,8 +5,8 @@ jobs:
   strategy:
     maxParallel: 2
     matrix: 
-      Integration:
-        environment: integration
+#       Integration:
+#         environment: integration
       QA:
         environment: qaenv
       Production:
