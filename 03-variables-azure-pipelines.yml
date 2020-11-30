@@ -23,10 +23,13 @@ stages:
     variables:
       myVarFromJobADebug: $(A.environment)
     steps:
-      - bash: echo "I am testing step 1:" ${{variables.myVarFromJobADebug}}
-      - bash: echo "I am testing step 2:" $(A.environment)
-      - bash: echo "I am testing step 3:" $(environment)
-    
+
+      - script: |
+         echo "ENV 1: " ${{ variables.Env }} # outputs initialValue
+         echo "ENV 2 : " $(Env) # outputs secondValue
+         echo "I am testing step 1:" ${{variables.myVarFromJobADebug}}
+         echo "I am testing step 2:" $(A.environment)
+         echo "I am testing step 3:" $(environment)
 
   - job: FirstJob
     steps: 
