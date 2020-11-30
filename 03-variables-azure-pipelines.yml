@@ -27,7 +27,7 @@ stages:
     #      echo $(environment)
     #   - script: | 
     #      echo "" ${{ A.environment }} 
-    variables:
+    #variables:
       # map the output variable from A into this job
       varFromA: $[ dependencies.A.environment]
     steps:
