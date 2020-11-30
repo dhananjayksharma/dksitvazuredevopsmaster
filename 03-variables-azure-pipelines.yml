@@ -24,11 +24,9 @@ stages:
       myVarFromJobADebug: '$(A.environment)'
     steps: 
       - script: |
-         echo ${{ variables.Env }} # outputs initialValue
-         echo "ENV 2 : " $(Env) # outputs secondValue
-         echo ${{ variables.myVarFromJobADebug }}
-         echo ${{ A.environment }}
          echo $(environment)
+      - script: | 
+         echo ${{ A.environment }} 
 
   # - job: FirstJob
   #   steps: 
