@@ -31,30 +31,30 @@ stages:
          echo "I am testing step 2:" ${{A.environment}}
          echo "I am testing step 3:" $[environment]
 
-  - job: FirstJob
-    steps: 
-      - bash: echo Build FirstJob
-      - bash: echo $(firstJobVariable)
-      - bash: echo "MyRunNumber:"$(MyRunNumber)
-      # - bash: echo $(Build.SourceBranchName) 
-      # - bash: echo $(Build.SourcesDirectory) 
-      # - bash: echo $(System.DefaultWorkingDirectory) 
-      # - bash: echo $(Build.ArtifactStagingDirectory) 
-      # - bash: echo "Build.DefinitionName" $(Build.DefinitionName) 
-      - task: CopyFiles@2
-        inputs:
-          SourceFolder: '$(System.DefaultWorkingDirectory)'
-          Contents: |
-            **/*.yml
-            **/*.tf
-          TargetFolder: '$(Build.ArtifactStagingDirectory)'
-      - bash: ls -R $(Build.ArtifactStagingDirectory)
+  # - job: FirstJob
+  #   steps: 
+  #     - bash: echo Build FirstJob
+  #     - bash: echo $(firstJobVariable)
+  #     - bash: echo "MyRunNumber:"$(MyRunNumber)
+  #     # - bash: echo $(Build.SourceBranchName) 
+  #     # - bash: echo $(Build.SourcesDirectory) 
+  #     # - bash: echo $(System.DefaultWorkingDirectory) 
+  #     # - bash: echo $(Build.ArtifactStagingDirectory) 
+  #     # - bash: echo "Build.DefinitionName" $(Build.DefinitionName) 
+  #     - task: CopyFiles@2
+  #       inputs:
+  #         SourceFolder: '$(System.DefaultWorkingDirectory)'
+  #         Contents: |
+  #           **/*.yml
+  #           **/*.tf
+  #         TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  #     - bash: ls -R $(Build.ArtifactStagingDirectory)
        
-      - task: PublishBuildArtifacts@1
-        inputs:
-          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-          ArtifactName: 'drop'
-          publishLocation: 'Container'
+  #     - task: PublishBuildArtifacts@1
+  #       inputs:
+  #         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+  #         ArtifactName: 'drop'
+  #         publishLocation: 'Container'
 
 
 
