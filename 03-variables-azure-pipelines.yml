@@ -22,12 +22,16 @@ stages:
   - job: TestVarDependencies
     variables:
       myVarFromJobADebug: '$(A.environment)'
-    steps: 
-      - script: |
-         echo $(environment)
-      - script: | 
-         echo ${{ A.environment }} 
-
+    # steps: 
+    #   - script: |
+    #      echo $(environment)
+    #   - script: | 
+    #      echo "" ${{ A.environment }} 
+    variables:
+      # map the output variable from A into this job
+      varFromA: $[ dependencies.A.environment]
+    steps:
+    - script: echo $(varFromA) # this step uses the mapped-in variable
   # - job: FirstJob
   #   steps: 
   #     - bash: echo Build FirstJob
