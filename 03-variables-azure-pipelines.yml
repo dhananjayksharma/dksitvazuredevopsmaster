@@ -29,9 +29,9 @@ stages:
     #      echo "" ${{ A.environment }} 
     #variables:
       # map the output variable from A into this job
-      varFromA: $[ dependencies.A.environment]
+      #varFromA: $[ dependencies.A.environment]
     steps:
-    - script: echo "HERE " $( dependencies.A.environment ) # this step uses the mapped-in variable
+    - script: echo "HERE " $( variables.A.environment ) # this step uses the mapped-in variable
   # - job: FirstJob
   #   steps: 
   #     - bash: echo Build FirstJob
