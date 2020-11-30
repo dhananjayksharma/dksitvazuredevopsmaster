@@ -15,15 +15,17 @@ stages:
   displayName: "Add Stratgey yml"
   jobs:
   - template: 01-strategy.yaml
-
+#echo ${{ variables.one }} # outputs initialValue
+#     echo $(one)
 - stage: Build
   jobs:
   - job: TestVarDependencies
     variables:
       myVarFromJobADebug:  ${{A.environment}}
     steps:
-      - bash: echo "I am testing step 1:" ${{myVarFromJobADebug}}
+      - bash: echo "I am testing step 1:" ${{variables.myVarFromJobADebug}}
       - bash: echo "I am testing step 2:" ${{A.environment}}
+      - bash: echo "I am testing step 3:" $(environment)
     
 
   - job: FirstJob
